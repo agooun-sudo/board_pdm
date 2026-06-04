@@ -36,7 +36,7 @@ while True:
 
     elif menu == "3":
 
-        num = input("번호 : ")
+        num = int(input("번호 : "))
 
         board = board_dao.select_one(num)
 
@@ -51,11 +51,12 @@ while True:
         
     elif menu == "4":
 
-        num = input("삭제 번호 : ")
+        num = int(input("삭제 번호 : "))
 
         board_dao.delete_board(num)
 
         print("삭제 완료")
 
 print("프로그램 종료")
+
     

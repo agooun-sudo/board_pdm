@@ -61,8 +61,28 @@ class BoardDAO:
         """
 
         
-        cursor.execute(sql)
+        cursor.execute(sql, (board_id,))
         result = cursor.fetchone()
         print(result)
         cursor.close()
         conn.close()
+    
+    def delete_board(self, board_id):
+
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        sql = """
+        DELETE
+        FROM board
+        WHERE id=%s
+        """
+
+        cursor.execute(sql, (board_id,))
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        print("삭제 완료")
