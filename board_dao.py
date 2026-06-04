@@ -8,7 +8,7 @@ class BoardDAO:
         self.password = "board1234"
         self.database = "board_db"
 
-    def get_connection(self):#커넥션 db접속을 연결해주는 함수
+    def get_connection(self):#커넥션 db접속을 연결해주는
         return pymysql.connect(
             host=self.host,
             user=self.user,
@@ -66,6 +66,8 @@ class BoardDAO:
         print(result)
         cursor.close()
         conn.close()
+
+         return result
     
     def delete_board(self, board_id):
 
