@@ -24,7 +24,7 @@ class BoardDAO:
         sql = """
         select *
         from board
-        order by id desc
+        order by id asc
         """
 
         cursor.execute(sql)
@@ -34,3 +34,35 @@ class BoardDAO:
         
     
         return result
+    
+    def insert(self, title, content, writer):
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        sql = """
+        insert into board (title, content, writer)
+        values (%s, %s, %s)
+        """
+
+        cursor.execute(sql, (title, content, writer))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    
+    def select_one(self, board_id):
+
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        sql = """
+        SELECT *
+        FROM board
+        WHERE id=%s
+        """
+
+        
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        print(result)
+        cursor.close()
+        conn.close()
