@@ -67,7 +67,7 @@ class BoardDAO:
         cursor.close()
         conn.close()
 
-         return result
+        return result
     
     def delete_board(self, board_id):
 

@@ -58,5 +58,3 @@ while True:
         print("삭제 완료")
 
 print("프로그램 종료")
-
-    
