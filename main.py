@@ -2,61 +2,78 @@ from board_dao import *
 
 board_dao = BoardDAO()
 
+
+try:
+    board_dao.get_connection()
+except Exception as e:
+    print("DB 연결 실패 :", e)
+
+
 #커넥션 테스트
 board_dao.get_connection()
 
 while True:
-    print("=" * 40)
-    print("1.목록 2.등록 3.내용 4.삭제 0.종료")
-    print("=" * 40)
-
-    menu = input("선택 > ")
-
-    if menu == "0":
-        break
-    elif menu == "1": # 게시판 select * from board
-        boards = board_dao.select_all()
+    try:
         
-        print(boards)
+        print("=" * 40)
+        print("1.목록 2.등록 3.내용 4.삭제 0.종료")
+        print("=" * 40)
 
-        for board in boards:
-            print(board[0],
+        menu = input("선택 > ")
+
+        if menu == "0":
+            break
+        
+        elif menu == "1": # 게시판 select * from board
+            boards = board_dao.select_all()
+        
+            print(boards)
+
+            for board in boards:
+                print(board[0],
                   board[1],
                   board[2],
                   board[3],
                   board[4])
-    elif menu == "2":
-
-        title = input("제목 > ")
-        content = input("내용 > ")
-        writer = input("작성자 > ")
-        board_dao.insert(title, content, writer)
-
-        print("등록 완료")
-
-    elif menu == "3":
-
-        num = int(input("번호 : "))
-
-        board = board_dao.select_one(num)
-
-        if board:
-
-            print()
-            print("번호 :", board[0])
-            print("제목 :", board[1])
-            print("내용 :", board[2])
-            print("작성자 :", board[3])
-            print("작성일 :", board[4])
+        elif menu == "2":
         
-    elif menu == "4":
+            title = input("제목 > ")
+            content = input("내용 > ")
+            writer = input("작성자 > ")
+            board_dao.insert(title, content, writer)
 
-        num = int(input("삭제 번호 : "))
+            print("등록 완료")
 
-        board_dao.delete_board(num)
+        elif menu == "3":
+        
+            num = int(input("번호 : "))
+
+            board = board_dao.select_one(num)
+
+            if board:
+            
+                print()
+                print("번호 :", board[0])
+                print("제목 :", board[1])
+                print("내용 :", board[2])
+                print("작성자 :", board[3])
+                print("작성일 :", board[4])
+        
+        elif menu == "4":
+        
+            num = int(input("삭제 번호 : "))
+            board_dao.delete_board(num)
 
 
-        print("삭제 완료")
+            print("삭제 완료")
+
+        else:
+            print("메뉴를 다시 선택하세요.")
+    except ValueError:
+        print("숫자를 입력하세요.")
+    except Exception as e:
+        print("오류 발생 :",e)
+
 
 print("프로그램 종료")
 
